@@ -1,0 +1,43 @@
+link - https://jsfiddle.net/ho6z0bku/1/
+
+html
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="container">
+  <div class="row my-3">
+    <div class="col">
+      <div class="jumbotron" id="1">
+        <span>Right click1</span>
+      </div>
+      <div class="jumbotron" id="2">
+        <span>Right click2</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dropdown-menu dropdown-menu-sm" id="context-menu">
+  <a class="dropdown-item" id="red">Red</a>
+  <a class="dropdown-item" id="green">Green</a>
+  <a class="dropdown-item" id="yellow">Yellow</a>
+</div>
+
+
+JQuery
+$('.jumbotron').on('contextmenu', function(e) {
+  var top = e.pageY - 10;
+  var left = e.pageX - 90;
+  $("#context-menu").css({
+    display: "block",
+    top: top,
+    left: left
+  }).addClass("show");
+  $("#context-menu").attr("name", e.target.id)
+  return false; //blocks default Webbrowser right click menu
+}).on("click", function() {
+  $("#context-menu").removeClass("show").hide();
+});
+
+$("#context-menu a").on("click", function() {
+	alert($(this).attr("id") + " and " + $(this).parent().attr("name"));
+  $(this).parent().removeClass("show").hide();
+});
